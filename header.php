@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 session_start();
 include('bdd/pdo.php');
 $logged = isset($_SESSION['user']);
@@ -11,6 +13,7 @@ if ($logged) {
         unset($_SESSION['user']);
     }
 }
+
 ?>
 <html>
     <head>
