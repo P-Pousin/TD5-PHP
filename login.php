@@ -4,11 +4,11 @@
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        if (!empty($_POST['login']) && !empty($_POST['password'])) {
-            $req = $pdo->query('SELECT * FROM users WHERE login="'.$_POST['login'].'"');
+        if (!empty(htmlspecialchars($_POST['login'])) && !empty(htmlspecialchars($_POST['password']))) {
+            $req = $pdo->query('SELECT * FROM users WHERE login="'.htmlspecialchars($_POST['login']).'"');
             if ($req->rowCount()) {
                 $user = $req->fetch();
-                if ($user['password'] == $_POST['password']) {
+                if ($user['password'] == htmlspecialchars($_POST['password'])) {
                     $currentUser = $user;
                     $_SESSION['user'] = $currentUser['id'];
 ?>
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
 ?>
 <div class="alert alert-danger">
-    L'utilisateur <?php echo $_POST['login']; ?> n'existe pas.
+    L'utilisateur <?php echo htmlspecialchars($_POST['login']); ?> n'existe pas.
 </div>
 <?php
             }
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php if ($currentUser) { ?>
 <div class="alert alert-success">
-    Vous êtes identifiés en tant que <?php echo $currentUser['login']; ?>
+    Vous êtes identifiés en tant que <?php echo htmlspecialchars($currentUser['login']); ?>
 </div>
 <?php } else { ?>
 <form method="post" class="form-horizontal">

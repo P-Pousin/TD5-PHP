@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
 ?>
 <div class="alert alert-danger">
-    L'utilisateur <?php echo $_POST['login']; ?> existe déjà.
+    L'utilisateur <?php echo htmlspecialchars($_POST['login']); ?> existe déjà.
 </div>
 <?php
             }

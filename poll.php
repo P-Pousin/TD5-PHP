@@ -27,10 +27,10 @@ if ($currentUser) {
     if ($query->rowCount()) {
         $userAnswered = true;
     } else {
-        if ($_SERVER['REQUEST_METHOD']=='POST' && !empty($_POST['answer']) &&
-            ($_POST['answer']=='1' || $_POST['answer']=='2' || $_POST['answer']=='3')) {
+        if ($_SERVER['REQUEST_METHOD']=='POST' && !empty(htmlspecialchars($_POST['answer'])) &&
+            (htmlspecialchars($_POST['answer'])=='1' || htmlspecialchars($_POST['answer'])=='2' || htmlspecialchars($_POST['answer']=='3'))) {
                 $pdo->exec('INSERT INTO answers (user_id, poll_id, answer)
-                    VALUES ("'.$currentUser['id'].'","'.$poll['id'].'","'.$_POST['answer'].'")');
+                    VALUES ("'.$currentUser['id'].'","'.$poll['id'].'","'.htmlspecialchars($_POST['answer'].'")'));
                 $userAnswered = true;
             }
     }
