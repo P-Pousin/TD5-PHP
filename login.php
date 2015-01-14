@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $req = $pdo->query('SELECT * FROM users WHERE login="'.htmlspecialchars($_POST['login']).'"');
             if ($req->rowCount()) {
                 $user = $req->fetch();
-                if ($user['password'] == htmlspecialchars($_POST['password'])) {
+                if (md5($user['password']) == htmlspecialchars($_POST['password'])) {
                     $currentUser = $user;
                     $_SESSION['user'] = $currentUser['id'];
 ?>

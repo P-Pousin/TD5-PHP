@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $req = $pdo->query('SELECT COUNT(*) as nb FROM users WHERE login="'.$_POST['login'].'"')->fetch();
             if ($req['nb'] == 0) {
                 $query = $pdo->prepare('INSERT INTO users (login, password) VALUES (?,?)');
-                $query->execute(array($_POST['login'], $_POST['password']));
+                $query->execute(array($_POST['login'], md5($_POST['password'])));
 ?>
 <div class="alert alert-success">
     Félicitations! Vous êtes désormais inscrits.
