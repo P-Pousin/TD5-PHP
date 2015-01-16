@@ -112,14 +112,15 @@ class Model {
         return $count['nb'];
     }
 
-    public function createPoll($question,$answer1,$answer2,$answer3) {
-        $sql = 'INSERT INTO polls (question,answer1,answer2,answer3) 
-                VALUES (:question,:answer1,:answer2,:answer3)';
+    public function createPoll($question,$answer1,$answer2,$answer3,$user) {
+        $sql = 'INSERT INTO polls (question,answer1,answer2,answer3,user) 
+                VALUES (:question,:answer1,:answer2,:answer3,:user)';
         $query = $this->pdo->prepare($sql);
         $query->bindParam(':question',$question);
         $query->bindParam(':answer1',$answer1);
         $query->bindParam(':answer2',$answer2);
         $query->bindParam(':answer3',$answer3);
+        $query->bindParam(':user',$user);
         $query->execute();
         return true;
     }

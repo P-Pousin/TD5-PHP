@@ -60,7 +60,7 @@ $app->post('/create', function() use ($app) {
 	$answer1 = $_POST['answer1'];
 	$answer2 = $_POST['answer2'];
 	$answer3 = $_POST['answer3'];
-	if($app['model']->createPoll($question,$answer1,$answer2,$answer3)) {
+	if($app['model']->createPoll($question,$answer1,$answer2,$answer3,$app['session']->get('user')['login'])) {
 	    $success = 'true';
 	}
 	else {
@@ -74,7 +74,8 @@ $app->post('/create', function() use ($app) {
 $app->match('/create', function() use ($app) {
 	$success = 'non défini';
     return $app['twig']->render('create.html.twig', array(
-    			'created' => $success
+    			'created' => $success,
+    			'session' => $app['session']->get('user')
     	));
 })->bind('create-form');
 	
