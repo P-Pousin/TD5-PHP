@@ -1,0 +1,42 @@
+{% extends 'template.html.twig' %}
+{% block content %}
+	<section class="col-lg-12">
+		<h2>Sondage</h2>
+		{% if app.session.get('user') %}
+			{% if poll %}
+				<form method="post" action="{{ path('answer', {id: poll.id, idUser: session.idUser}) }}">
+				{% if poll.answer1 %}
+					<h3>
+						<label>
+							<input type="radio" name="answer" value="1"/>&nbsp;{{ poll.answer1 }}
+						</label>
+					</h3>
+				{% endif %}
+				{% if poll.answer2 %}
+					<h3>
+						<label>
+							<input type="radio" name="answer" value="2"/>&nbsp;{{ poll.answer2 }}
+						</label>
+					</h3>
+				{% endif %}
+				{% if poll.answer3 %}
+					<h3>
+						<label>
+							<input type="radio" name="answer" value="3"/>&nbsp;{{ poll.answer3 }}
+						</label>
+					</h3>
+				{% endif %}
+				 <input class="btn btn-success pull-right" type="submit" value="Participer!"/>
+				 </form>
+			{% else %}
+				<div class="alert alert-danger">
+	    			Sondage non trouvé.
+				</div>
+			{% endif %}
+		{% else %}
+			<div class="alert alert-danger">
+    			Vous devez être connecté
+			</div>
+		{% endif %}
+	</section>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'template.html.twig' %}
+{% block content %}
+	{% if submitted %}
+		<div class="alert alert-success">
+			Réponse enregistrée
+		</div>
+		<h1>{{ total }}</h1>
+	{% endif %}
+
+	{% for answer in answers %}
+		<h2>{{ answer['answer'] }}</h2>
+	{% endfor %}
+		<h1>nombre de réponses : {{ answers|length }}</h1>
+		<h2>{{ poll['answer1'] }}</h2>
+	<form method="post">
+		{% for answer in answersId %}
+		<h3>
+			<label>{{ answer.answer1 }}</label>
+		</h3>
+		<div class="progress">
+			{% set pourcent = (answers.nb/total.nb)*100 %}
+			<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+				{{pourcent}}%
+			</div>
+		</div>
+		{% endfor %}
+	</form>
+{% endblock %}

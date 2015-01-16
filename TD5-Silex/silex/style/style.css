@@ -1,0 +1,33 @@
+body {
+    width:800px;
+    margin:auto;
+    font-size:16px;
+    text-align:justify;
+    margin-top:5px;
+}
+
+.sondage {
+   color:#9b3737; 
+}
+
+h1 {
+    font-family:impact;
+    text-align:center;
+    margin:0;
+    margin-right:5px;
+}
+
+#menu a {
+    color: rgba(0,0,0,0.6);
+    padding-top:12px;
+    padding-bottom: 12px;
+    border-top:3px solid rgba(0,0,0,0);
+    border-bottom: 3px solid rgba(0,0,0,0);
+    transition: all 0.2s ease-out;
+}
+
+#menu a:hover {
+    color: black;
+    border-bottom: 3px solid rgba(0,0,0,0.6);
+    transition: all 0.4s ease-in;
+}

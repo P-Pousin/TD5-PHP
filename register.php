@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 ?>
-
+r
 <form method="post" class="form-horizontal">
     <div class="form-group">
         <label class="col-sm-2" for="login">Identifiant</label>

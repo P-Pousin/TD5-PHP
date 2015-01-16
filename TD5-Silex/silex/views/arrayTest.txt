@@ -1,0 +1,45 @@
+array(7) { 
+	[0]=> array(8) { 
+		["id"]=> string(1) "7" 
+		[0]=> string(1) "7"
+		["user_id"]=> string(2) "10" 
+		[1]=> string(2) "10" 
+		["poll_id"]=> string(1) "4"
+		[2]=> string(1) "4" 
+		["answer"]=> string(1) "1" 
+		[3]=> string(1) "1" 
+	} 
+	[1]=>array(8) { 
+		["id"]=> string(2) "14" 
+		[0]=> string(2) "14" 
+		["user_id"]=>string(2) "11" 
+		[1]=> string(2) "11" 
+		["poll_id"]=> string(1) "4" 
+		[2]=>string(1) "4" 
+		["answer"]=> string(1) "1" 
+		[3]=> string(1) "1" 
+	} 
+	[2]=> array(8){ 
+		["id"]=> string(2) "15" 
+		[0]=> string(2) "15" 
+		["user_id"]=> string(2) "11"
+		[1]=> string(2) "11" 
+		["poll_id"]=> string(1) "4" 
+		[2]=> string(1) "4"
+		["answer"]=> string(1) "2" 
+		[3]=> string(1) "2" 
+	} 
+	[3]=> array(8) { 
+		["id"]=> string(2) "18" 
+		[0]=> string(2) "18" 
+		["user_id"]=> string(2) "11" [1]=>
+string(2) "11" ["poll_id"]=> string(1) "4" [2]=> string(1) "4" ["answer"]=>
+string(1) "2" [3]=> string(1) "2" } [4]=> array(8) { ["id"]=> string(2) "25"
+[0]=> string(2) "25" ["user_id"]=> string(2) "11" [1]=> string(2) "11"
+["poll_id"]=> string(1) "4" [2]=> string(1) "4" ["answer"]=> string(1) "2"
+[3]=> string(1) "2" } [5]=> array(8) { ["id"]=> string(2) "26" [0]=> string(2)
+"26" ["user_id"]=> string(2) "11" [1]=> string(2) "11" ["poll_id"]=> string(1)
+"4" [2]=> string(1) "4" ["answer"]=> string(1) "2" [3]=> string(1) "2" } [6]=>
+array(8) { ["id"]=> string(2) "27" [0]=> string(2) "27" ["user_id"]=>
+string(2) "11" [1]=> string(2) "11" ["poll_id"]=> string(1) "4" [2]=>
+string(1) "4" ["answer"]=> string(1) "2" [3]=> string(1) "2" } }

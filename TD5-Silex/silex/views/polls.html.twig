@@ -1,0 +1,20 @@
+{% extends 'template.html.twig' %}
+{% block content %}
+	<section class="col-lg-12">
+		<h2>Sondages</h2>
+		<ul class="list-group">
+			{% if polls %}
+				{% for poll in polls %}
+				<li class="list-group-item">
+					<strong>{{ poll.question }}</strong>
+					<a href="{{ path('poll', {id: poll.id}) }}" class="btn btn-xs btn-success pull-right">
+						Voir &raquo;
+					</a>
+				</li>
+				{% endfor %}
+			{% else %}
+				Il n'y a aucun sondage.
+			{% endif %}
+		</ul>
+	</section>
+{% endblock %}

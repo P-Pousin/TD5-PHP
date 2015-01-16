@@ -5,7 +5,7 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!empty(htmlspecialchars($_POST['login'])) && !empty(htmlspecialchars($_POST['password']))) {
-            $req = $pdo->query('SELECT * FROM users WHERE login="'.htmlspecialchars($_POST['login']).'"');
+            $req = $pdo->query('SELECT * FROM users WHERE login="'.$_POST['login'].'"');
             if ($req->rowCount()) {
                 $user = $req->fetch();
                 if (md5($user['password']) == htmlspecialchars($_POST['password'])) {
