@@ -1,11 +1,12 @@
 {% extends 'template.html.twig' %}
 {% block content %}
 	<section class="col-lg-12">
-		{% if register %}
+		{% if register == 'true' %}
 			<div class="alert alert-success">
     			Utilisateur créé
 			</div>
-		{% else %}
+		{% endif %}
+		{% if register == 'false' %}
 			<div class="alert alert-danger">
     			L'utilisateur existe déjà
 			</div>

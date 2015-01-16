@@ -75,9 +75,10 @@ class Model {
     }
 
     public function getPoll($id) {
-        $sql ='SELECT * FROM polls WHERE id = ?';
+        $sql ='SELECT * FROM polls WHERE id=:id';
         $query = $this->pdo->prepare($sql);
-        $query->execute(array($id));
+        $query->bindParam(':id',$id);
+        $query->execute();
         return $query->fetch();
     }
 
@@ -95,6 +96,13 @@ class Model {
         return $answers;
     }
 
+    public function getLabelAnswers($idPoll) {
+        $sql ='SELECT answer1, answer2, answer3 FROM polls WHERE id = ?';
+        $query = $this->pdo->prepare($sql);
+        $query->execute(array($idPoll));
+        return $query->fetch();
+    }
+
     public function getTotalAnswer($idPoll) {
         $sql ='SELECT COUNT(*) as nb FROM answers WHERE poll_id = :idPoll';
         $query = $this->pdo->prepare($sql);
@@ -104,25 +112,28 @@ class Model {
         return $count['nb'];
     }
 
-
-
     public function createPoll($question,$answer1,$answer2,$answer3) {
-        if (!empty($qestion) && !empty($answer1) && !empty($answer2) && isset($answer3)) {
-                $pdo->exec('INSERT INTO polls (question,answer1,answer2,answer3)
-                VALUES ("'.$question.'","'.$answer1.'","'.$answer2.'","'.$answer3.'")');
-                return true;
-        }
+        $sql = 'INSERT INTO polls (question,answer1,answer2,answer3) 
+                VALUES (:question,:answer1,:answer2,:answer3)';
+        $query = $this->pdo->prepare($sql);
+        $query->bindParam(':question',$question);
+        $query->bindParam(':answer1',$answer1);
+        $query->bindParam(':answer2',$answer2);
+        $query->bindParam(':answer3',$answer3);
+        $query->execute();
+        return true;
     }
 
     public function insertAnswer($idUser,$idPoll,$answer) {
-        if (!empty($answer) && ($answer=='1' || $answer=='2' || $answer=='3')) {
-                $query = $this->pdo->prepare('INSERT INTO answers (user_id, poll_id, answer)
-                    VALUES (:idUser,:idPoll,:answer)');
-                $query->bindParam(':idUser',$idUser);
-                $query->bindParam(':idPoll',$idPoll);
-                $query->bindParam(':answer',$answer);
-                $query->execute();
-                return true;
+        if (!empty($answer) && ($answer=='0' || $answer=='1' || $answer=='2')) {
+            $sql = 'INSERT INTO answers (user_id, poll_id, answer)
+                    VALUES (:idUser,:idPoll,:answer)';
+            $query = $this->pdo->prepare($sql);
+            $query->bindParam(':idUser',$idUser);
+            $query->bindParam(':idPoll',$idPoll);
+            $query->bindParam(':answer',$answer);
+            $query->execute();
+            return true;
         }
     }
 }

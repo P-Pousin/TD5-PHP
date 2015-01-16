@@ -2,11 +2,12 @@
 {% block content %}
 	<section class="col-lg-12">
 		<h2>Créer un sondage</h2>
-		{% if created %}
+		{% if created == 'true' %}
 			<div class="alert alert-success">
     			Sondage ajouté
 			</div>
-		{% else %}
+		{% endif %}
+		{% if created == 'false' %}
 			<div class="alert alert-danger">
     			Vous devez remplir au mois 2 champs
 			</div>

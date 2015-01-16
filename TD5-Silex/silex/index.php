@@ -18,7 +18,8 @@ $app['model'] = new sondage\Model(
     'root'     // Mot de passe
 );
 
-//Connexion
+	/* ----- Connexion ----- */
+
 $app->post('/login', function() use ($app) {
     $login = $_POST['login'];
     $password = $_POST['password'];
@@ -34,46 +35,61 @@ $app->post('/login', function() use ($app) {
     return $app->redirect("/");
 })->bind('login');
 
-// Page d'accueil
+$app->match('/login', function() use ($app) {
+    return $app['twig']->render('login.html.twig');
+})->bind('login-form');
+
+$app->match('/logout', function() use ($app) {
+  	$app['session']->clear();
+    return $app['twig']->render('logout.html.twig');
+})->bind('logout');
+
+	/* ----- Page d'accueil ----- */
+
 $app->match('/', function() use ($app) {
     return $app['twig']->render('index.html.twig', array(
     	'session' => $app['session']->get('user')
     	));
 })->bind('index');
 
-// Déconnexion
-$app->match('/logout', function() use ($app) {
-  	$app['session']->clear();
-    return $app['twig']->render('logout.html.twig');
-})->bind('logout');
+	/* ----- Création d'un sondage ----- */
 
-$app->match('/create', function() use ($app) {
-    return $app['twig']->render('create.html.twig');
-})->bind('create-form');
-// Création d'un sondage	
 $app->post('/create', function() use ($app) {
-	$success = false;
+	$success = 'non défini';
 	$question = $_POST['question'];
 	$answer1 = $_POST['answer1'];
 	$answer2 = $_POST['answer2'];
 	$answer3 = $_POST['answer3'];
 	if($app['model']->createPoll($question,$answer1,$answer2,$answer3)) {
-	    $success = true;
+	    $success = 'true';
+	}
+	else {
+		$success = 'false';
 	}
 	return $app['twig']->render('create.html.twig', array(
 				'created' => $success
 			));
 })->bind('create');
 
-
+$app->match('/create', function() use ($app) {
+	$success = 'non défini';
+    return $app['twig']->render('create.html.twig', array(
+    			'created' => $success
+    	));
+})->bind('create-form');
+	
+	/* ----- Ajout d'utilisateur ----- */
 
 $app->post('/register', function() use ($app) {
-	$success = false;
+	$success = 'non défini';
 	$login = $_POST['login'];
     $password = $_POST['password'];
     if ($login != null && $password != null) {
 	    if($app['model']->checkRegister($login,$password)) {
-	        $success = true;
+	        $success = 'true';
+	    }
+	    else {
+	    	$success = 'false';
 	    }
 	}
 	return $app['twig']->render('register.html.twig', array(
@@ -82,14 +98,13 @@ $app->post('/register', function() use ($app) {
 })->bind('register');
 
 $app->match('/register', function() use ($app) {
-    return $app['twig']->render('register.html.twig');
+	$success = 'non défini';
+    return $app['twig']->render('register.html.twig', array(
+				'register' => $success
+			));
 })->bind('register-form');
 
-
-
-$app->match('/login', function() use ($app) {
-    return $app['twig']->render('login.html.twig');
-})->bind('login-form');
+	/* ----- Sondages ----- */
 
 $app->match('/polls', function() use ($app) {
 	 return $app['twig']->render('polls.html.twig', array(
@@ -105,19 +120,22 @@ $app->match('/poll/{id}', function($id) use ($app) {
 })->bind('poll');
 
 $app->post('/answer/{id}/{idUser}', function($id, $idUser) use ($app) {
-	$success = false;
+	
 	$answerId = $_POST['answer'];
 	$idPoll = $id;
-	$answers = $app['model']->getAnswers($idPoll);
-	$total = $app['model']->getTotalAnswer($idPoll);
 	$poll = $app['model']->getPoll($idPoll);
+	$labelAnswers = $app['model']->getLabelAnswers($idPoll);
 	if($app['model']->insertAnswer($idUser,$idPoll,$answerId)) {
-	    $success = true;
+	    $success = 'true';
+	}
+	else {
+		$success = 'false';
 	}
 	return $app['twig']->render('answer.html.twig', array(
 			'poll' => $poll,
-			'answers' => $answers,
-			'total' => $total,
+			'answers' => $app['model']->getAnswers($idPoll),
+			'total' => $app['model']->getTotalAnswer($idPoll),
+			'labelAnswers' => $labelAnswers,
 			'submitted' => $success
 		));
 })->bind('answer');
