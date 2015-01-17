@@ -6,7 +6,8 @@
 			{% if polls %}
 				{% for poll in polls %}
 				<li class="list-group-item">
-					<strong>{{ poll.question }}</strong>
+					<strong>Sondage : {{ poll.question }}</strong>
+					<strong id="createur">Créateur : {{ poll.user }}</strong>
 					<a href="{{ path('poll', {id: poll.id}) }}" class="btn btn-xs btn-success pull-right">
 						Voir &raquo;
 					</a>

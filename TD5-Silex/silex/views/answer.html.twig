@@ -5,19 +5,21 @@
 			Réponse enregistrée
 		</div>
 	{% endif %}
-		{% set nbAnswers = 2 %} 
-		{% if labelAnswers['answer3'] %}
-			{% set nbAnswers = 3 %} 
-		{% endif %}
-		{% for i in 1..nbAnswers %}
-			<h3>
-				<label>{{ labelAnswers[i-1] }}</label>
-			</h3>
-			<div class="progress">
-				{% set pourcent = (answers[i]/total)*100 %}
-				<div class="progress-bar" role="progressbar" aria-valuenow="{{ pourcent }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pourcent }}%;">
-					{{pourcent|round}}%
-				</div>
+	<h2>{{ poll.question }}</h2>
+	<h5>Créateur : {{ poll.user }}</h5>
+	{% set nbAnswers = 2 %} 
+	{% if labelAnswers['answer3'] %}
+		{% set nbAnswers = 3 %} 
+	{% endif %}
+	{% for i in 1..nbAnswers %}
+		<h3>
+			<label>{{ labelAnswers[i-1] }}</label>
+		</h3>
+		<div class="progress">
+			{% set pourcent = (answers[i]/total)*100 %}
+			<div class="progress-bar" role="progressbar" aria-valuenow="{{ pourcent }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pourcent }}%;">
+				{{pourcent|round}}%
 			</div>
-		{% endfor %}
+		</div>
+	{% endfor %}
 {% endblock %}
